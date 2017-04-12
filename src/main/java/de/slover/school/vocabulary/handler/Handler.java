@@ -52,16 +52,29 @@ public class Handler {
 
     public void handleTrain(String answer) {
         String word;
-        String solution;
+        LinkedList<String> solutions;
+        boolean right = false;
 
         if (FromToTo) {
-            solution = group.getVocabulary().get(notAsked.get(position)).getVoc2();
             word = group.getVocabulary().get(notAsked.get(position)).getVoc1();
         } else {
-            solution = group.getVocabulary().get(notAsked.get(position)).getVoc1();
             word = group.getVocabulary().get(notAsked.get(position)).getVoc2();
         }
-        if (answer.equals(solution)) {
+        solutions = group.getAnswers(word, FromToTo);
+
+        for (String solution : solutions) {
+            if (right) {
+                break;
+            }
+            if (answer.equals(solution)) {
+                right = true;
+            } else {
+                right = false;
+            }
+
+        }
+        
+        if (right) {
             correct++;
             window.gettcard().setStatus(correct, incorrect);
             removePosition();
@@ -70,17 +83,17 @@ public class Handler {
             incorrect++;
             window.gettcard().setStatus(correct, incorrect);
             window.gettcard().addToFalseList(word + " -> "
-                    + solution);
+                    + solutions.get(0));
             Voc fA = new Voc();
             if (FromToTo) {
                 fA.setVoc1(word);
-                fA.setVoc2(solution);
+                fA.setVoc2(solutions.get(0));
             } else {
-                fA.setVoc1(solution);
+                fA.setVoc1(solutions.get(0));
                 fA.setVoc2(word);
             }
             falseAnswers.getVocabulary().add(fA);
-            window.gettcard().showAlert("Your answer \"" + answer + "\" is false. The right answer would be \"" + solution + "\".");
+            window.gettcard().showAlert("Your answer \"" + answer + "\" is false. The right answer would be \"" + solutions.get(0) + "\".");
             removePosition();
             newQuestion();
         }

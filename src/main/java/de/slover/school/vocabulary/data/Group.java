@@ -73,4 +73,21 @@ public class Group {
         this.vocabulary = vocabulary;
     }
 
+    public LinkedList<String> getAnswers(String voc, boolean fromtoto) {
+        LinkedList<String> res = new LinkedList<>();
+        for (Voc v : vocabulary) {
+            if (fromtoto) {
+                if (v.getVoc1().equals(voc)) {
+                    res.add(v.getVoc2());
+                }
+            } else {
+                if (v.getVoc2().equals(voc)) {
+                    res.add(v.getVoc1());
+                }
+            }
+        }
+
+        return res;
+    }
+
 }
