@@ -264,8 +264,10 @@ public class BrowserCard extends JPanel implements ActionListener, FocusListener
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (e.getSource() == voc1) {
+            voc2.scrollRectToVisible(voc1.getVisibleRect());
             voc2.setSelectedIndex(voc1.getSelectedIndex());
         } else if (e.getSource() == voc2) {
+            voc1.scrollRectToVisible(voc2.getVisibleRect());
             voc1.setSelectedIndex(voc2.getSelectedIndex());
         }
 
