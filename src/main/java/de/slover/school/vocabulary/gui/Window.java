@@ -83,6 +83,9 @@ public class Window {
             case TSETTINGSC:
                 frame.resize(225, 125);
                 handler.loadGroup();
+                if(handler.getGroup() == null){
+                    return;
+                }
                 tscard.setVocs(handler.getGroup().getVoc1(), handler.getGroup().getVoc2());
                 break;
             case TRAINERC:

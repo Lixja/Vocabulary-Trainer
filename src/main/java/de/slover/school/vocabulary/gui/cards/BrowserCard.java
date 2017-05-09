@@ -225,6 +225,9 @@ public class BrowserCard extends JPanel implements ActionListener, FocusListener
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == mntmOpenFile) {
             Group g = window.getHandler().loadGroup();
+            if(g == null){
+                return;
+            }
             gname.setText(g.getName());
             ivoc1.setText(g.getVoc1());
             ivoc1.setForeground(Color.BLACK);

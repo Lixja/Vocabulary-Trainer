@@ -138,14 +138,16 @@ public class Handler {
         try {
             group = reader.chooseGroup();
         } catch (NullPointerException e) {
-
+            
         }
+        if(group != null){
         window.gettcard().clearFalseList();
         window.gettcard().setStatus(0, 0);
         falseAnswers = new Group();
         falseAnswers.setName("False Answers To " + group.getName());
         falseAnswers.setVoc1(group.getVoc1());
         falseAnswers.setVoc2(group.getVoc2());
+        }
         return group;
     }
 
