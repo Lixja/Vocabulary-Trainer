@@ -4,7 +4,7 @@
     <groupId>de.slover.school</groupId>
     <artifactId>voc-trainer</artifactId>
     <name>Vocabulary-Trainer</name>
-    <version>1.0.3-S</version>
+    <version>1.0.3</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
