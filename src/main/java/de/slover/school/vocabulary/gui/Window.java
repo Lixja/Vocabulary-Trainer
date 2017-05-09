@@ -22,8 +22,12 @@ import de.slover.school.vocabulary.gui.cards.TrainerCard;
 import de.slover.school.vocabulary.gui.cards.TrainerSettingsCard;
 import de.slover.school.vocabulary.handler.Handler;
 import java.awt.CardLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -63,6 +67,7 @@ public class Window {
     }
 
     public void init() {
+        this.setLookAndFeel();
         frame = new JFrame("VOCABULARY-TRAINER");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(225, 125);
@@ -94,6 +99,21 @@ public class Window {
         }
 
         clayout.show(this.card, card);
+
+    }
+    
+    private void setLookAndFeel(){
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
