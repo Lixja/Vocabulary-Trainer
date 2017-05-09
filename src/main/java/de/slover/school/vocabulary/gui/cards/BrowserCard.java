@@ -34,6 +34,7 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -178,6 +179,16 @@ public class BrowserCard extends JPanel implements ActionListener, FocusListener
     }
 
     public void addVoc(String voc1, String voc2) {
+        for(int i=0; i< modelvoc1.getSize(); i++){
+            if(modelvoc1.get(i).equals(voc1)){
+                for(int i2=0; i2<modelvoc2.getSize(); i2++){
+                    if(modelvoc2.get(i2).equals(voc2)){
+                        JOptionPane.showMessageDialog(null, "Already added!", "VOC-INFO", JOptionPane.PLAIN_MESSAGE);
+                        return;
+                    }
+                }
+            }
+        }
         this.modelvoc1.addElement(voc1);
         this.modelvoc2.addElement(voc2);
     }
