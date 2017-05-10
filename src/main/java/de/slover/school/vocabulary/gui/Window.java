@@ -101,7 +101,7 @@ public class Window {
                 if(handler.getGroup() == null){
                     return;
                 }
-                frame.resize(400, 75);
+                frame.resize(400, 125);
                 break;
             case BROWSERC:
                 frame.resize(500, 500);

@@ -32,16 +32,16 @@ import javax.swing.JSplitPane;
  *
  * @author Dimitrios Diamantidis &lt;Dimitri.dia@ledimi.com&gt;
  */
-public class TeacherCard extends JPanel implements ActionListener, KeyListener{
-    
+public class TeacherCard extends JPanel implements ActionListener, KeyListener {
+
     private Window window;
-    
+
+    private JLabel lpos;
     private JLabel lvoc1, lvoc2;
-    private JButton btnl, btnr;
-    private JSplitPane splitBase, splitL, splitR;
-    
-    
-    public TeacherCard(Window window){
+    private JButton btnl, btnr, btnback;
+    private JSplitPane splitBase, splitL, splitR, splitT, splitA;
+
+    public TeacherCard(Window window) {
         super();
         this.window = window;
         this.setLayout(new BorderLayout(0, 0));
@@ -59,28 +59,42 @@ public class TeacherCard extends JPanel implements ActionListener, KeyListener{
         splitR.setResizeWeight(0.5);
         splitR.setLeftComponent(lvoc2);
         splitR.setRightComponent(btnr);
-        
-        splitBase = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        lpos = new JLabel("0/0", JLabel.CENTER);
+        btnback = new JButton("Back");
+        btnback.addActionListener(this);
+        splitT = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        splitT.setResizeWeight(0.5);
+        splitT.setLeftComponent(splitL);
+        splitT.setRightComponent(splitR);
+        splitA = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        splitA.setResizeWeight(0.5);
+        splitA.setLeftComponent(lpos);
+        splitA.setRightComponent(btnback);
+
+        splitBase = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitBase.setResizeWeight(0.5);
-        splitBase.setLeftComponent(splitL);
-        splitBase.setRightComponent(splitR);
+        splitBase.setLeftComponent(splitT);
+        splitBase.setRightComponent(splitA);
         this.add(splitBase);
-        
-        
+
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if(ae.getSource() == btnl){
+        if (ae.getSource() == btnl) {
             Voc voc = window.getHandler().getPrevious();
             setVoc(voc);
-        }else if(ae.getSource() == btnr){
+            lpos.setText(window.getHandler().getPosition() + "/" + window.getHandler().getMax());
+        } else if (ae.getSource() == btnr) {
             Voc voc = window.getHandler().getNext();
             setVoc(voc);
+            lpos.setText(window.getHandler().getPosition() + "/" + window.getHandler().getMax());
+        }else if(ae.getSource() == btnback){
+            window.changeCard(window.MENUC);
         }
     }
-    
-    private void setVoc(Voc voc){
+
+    private void setVoc(Voc voc) {
         lvoc1.setText(voc.getVoc1());
         lvoc2.setText(voc.getVoc2());
     }
@@ -96,5 +110,5 @@ public class TeacherCard extends JPanel implements ActionListener, KeyListener{
     @Override
     public void keyReleased(KeyEvent ke) {
     }
-    
+
 }

@@ -101,7 +101,7 @@ public class Handler {
     
     public Voc getNext(){
         position++;
-        if(position > group.getVocabulary().size()){
+        if(position >= group.getVocabulary().size()){
             position = 0;
         }
         return group.getVocabulary().get(position);
@@ -113,6 +113,13 @@ public class Handler {
             position = group.getVocabulary().size()-1;
         }
         return group.getVocabulary().get(position);
+    }
+    
+    public int getMax(){
+        return group.getVocabulary().size();
+    }
+    public int getPosition(){
+        return position+1;
     }
 
     public void removePosition() {
