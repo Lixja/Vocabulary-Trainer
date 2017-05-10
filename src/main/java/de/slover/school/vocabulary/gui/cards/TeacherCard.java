@@ -76,7 +76,6 @@ public class TeacherCard extends JPanel implements ActionListener, KeyListener {
         splitBase.setLeftComponent(splitT);
         splitBase.setRightComponent(splitA);
         this.add(splitBase);
-
     }
 
     @Override
