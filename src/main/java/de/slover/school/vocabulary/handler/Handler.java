@@ -98,6 +98,22 @@ public class Handler {
             newQuestion();
         }
     }
+    
+    public Voc getNext(){
+        position++;
+        if(position > group.getVocabulary().size()){
+            position = 0;
+        }
+        return group.getVocabulary().get(position);
+    }
+    
+    public Voc getPrevious(){
+        position--;
+        if(position < 0){
+            position = group.getVocabulary().size()-1;
+        }
+        return group.getVocabulary().get(position);
+    }
 
     public void removePosition() {
         notAsked.remove(notAsked.get(position));
@@ -147,6 +163,7 @@ public class Handler {
         falseAnswers.setName("False Answers To " + group.getName());
         falseAnswers.setVoc1(group.getVoc1());
         falseAnswers.setVoc2(group.getVoc2());
+        position = 0;
         }
         return group;
     }

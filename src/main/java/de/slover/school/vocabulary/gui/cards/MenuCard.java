@@ -31,9 +31,10 @@ import javax.swing.JSplitPane;
 public class MenuCard extends JPanel implements ActionListener {
 
     JButton CreateVocabulary;
+    JButton Teacher;
     JButton Trainer;
 
-    JSplitPane splitPaneBase;
+    JSplitPane splitPaneBase, splitPaneT;
 
     Window window;
 
@@ -43,13 +44,18 @@ public class MenuCard extends JPanel implements ActionListener {
         this.setLayout(new BorderLayout(0, 0));
         CreateVocabulary = new JButton("Browse Vocabulary");
         CreateVocabulary.addActionListener(this);
+        Teacher = new JButton("Learn Vocabulary");
+        Teacher.addActionListener(this);
         Trainer = new JButton("Train Vocabulary");
         Trainer.addActionListener(this);
         splitPaneBase = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitPaneBase.setResizeWeight(0.5);
         splitPaneBase.setLeftComponent(CreateVocabulary);
-
-        splitPaneBase.setRightComponent(Trainer);
+        splitPaneT = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        splitPaneT.setResizeWeight(0.5);
+        splitPaneBase.setRightComponent(splitPaneT);
+        splitPaneT.setLeftComponent(Teacher);
+        splitPaneT.setRightComponent(Trainer);
         this.add(splitPaneBase, BorderLayout.CENTER);
 
     }
@@ -58,7 +64,9 @@ public class MenuCard extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == CreateVocabulary) {
             window.changeCard(window.BROWSERC);
-        } else if (e.getSource() == Trainer) {
+        } else if(e.getSource() == Teacher){
+            window.changeCard(window.LEARNC);
+        }else if (e.getSource() == Trainer) {
             window.changeCard(window.TSETTINGSC);
         }
 

@@ -18,6 +18,7 @@ package de.slover.school.vocabulary.gui;
 
 import de.slover.school.vocabulary.gui.cards.BrowserCard;
 import de.slover.school.vocabulary.gui.cards.MenuCard;
+import de.slover.school.vocabulary.gui.cards.TeacherCard;
 import de.slover.school.vocabulary.gui.cards.TrainerCard;
 import de.slover.school.vocabulary.gui.cards.TrainerSettingsCard;
 import de.slover.school.vocabulary.handler.Handler;
@@ -41,12 +42,14 @@ public class Window {
     private final JPanel card;
     private final TrainerCard tcard;
     private final TrainerSettingsCard tscard;
+    private final TeacherCard lcard;
     private final BrowserCard bcard;
     private final MenuCard mcard;
 
     public final String MENUC = "menu";
     public final String TRAINERC = "trainer";
     public final String TSETTINGSC = "settings";
+    public final String LEARNC = "learn";
     public final String BROWSERC = "browser";
 
     private final Handler handler;
@@ -56,12 +59,14 @@ public class Window {
         tcard = new TrainerCard(this);
         tscard = new TrainerSettingsCard(this);
         bcard = new BrowserCard(this);
+        lcard = new TeacherCard(this);
         clayout = new CardLayout();
         card = new JPanel();
         card.setLayout(clayout);
         card.add(mcard, MENUC);
         card.add(bcard, BROWSERC);
         card.add(tcard, TRAINERC);
+        card.add(lcard, LEARNC);
         card.add(tscard, TSETTINGSC);
         handler = new Handler(this);
     }
@@ -81,15 +86,22 @@ public class Window {
     public void changeCard(String card) {
         switch (card) {
             case TSETTINGSC:
-                frame.resize(225, 125);
                 handler.loadGroup();
                 if(handler.getGroup() == null){
                     return;
                 }
+                frame.resize(225, 125);
                 tscard.setVocs(handler.getGroup().getVoc1(), handler.getGroup().getVoc2());
                 break;
             case TRAINERC:
                 frame.resize(400, 400);
+                break;
+            case LEARNC:
+                handler.loadGroup();
+                if(handler.getGroup() == null){
+                    return;
+                }
+                frame.resize(400, 75);
                 break;
             case BROWSERC:
                 frame.resize(500, 500);
