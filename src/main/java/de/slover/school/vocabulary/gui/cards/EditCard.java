@@ -37,7 +37,7 @@ public class EditCard extends JPanel implements ActionListener {
 
     private BrowserCard card;
 
-    private boolean saved = false;
+    private boolean saved = true;
 
     public EditCard(BrowserCard card) {
         super();
@@ -81,8 +81,10 @@ public class EditCard extends JPanel implements ActionListener {
                 int decision = JOptionPane.showConfirmDialog(null, "You did not save the vocabularyfile.\n Do you wanna save it before leaving?", "SAVE?", JOptionPane.YES_NO_CANCEL_OPTION);
                 if (decision == JOptionPane.YES_OPTION) {
                     card.Save();
+                    saved = true;
                     card.getWindow().changeCard(card.getWindow().MENUC);
                 } else if (decision == JOptionPane.NO_OPTION) {
+                    saved = true;
                     card.getWindow().changeCard(card.getWindow().MENUC);
                 }
             }
