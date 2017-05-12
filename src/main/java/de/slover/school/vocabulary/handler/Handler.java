@@ -73,7 +73,7 @@ public class Handler {
             }
 
         }
-        
+
         if (right) {
             correct++;
             window.gettcard().setStatus(correct, incorrect);
@@ -98,28 +98,29 @@ public class Handler {
             newQuestion();
         }
     }
-    
-    public Voc getNext(){
+
+    public Voc getNext() {
         position++;
-        if(position >= group.getVocabulary().size()){
+        if (position >= group.getVocabulary().size()) {
             position = 0;
         }
         return group.getVocabulary().get(position);
     }
-    
-    public Voc getPrevious(){
+
+    public Voc getPrevious() {
         position--;
-        if(position < 0){
-            position = group.getVocabulary().size()-1;
+        if (position < 0) {
+            position = group.getVocabulary().size() - 1;
         }
         return group.getVocabulary().get(position);
     }
-    
-    public int getMax(){
+
+    public int getMax() {
         return group.getVocabulary().size();
     }
-    public int getPosition(){
-        return position+1;
+
+    public int getPosition() {
+        return position + 1;
     }
 
     public void removePosition() {
@@ -149,28 +150,32 @@ public class Handler {
     }
 
     public void saveGroup(Group group) {
-        File f = writer.createGroup();
-        String fileName = f.toString();
-        if (!fileName.endsWith(".xml")) {
-            fileName += ".xml";
+        try {
+            File f = writer.createGroup();
+            String fileName = f.toString();
+            if (!fileName.endsWith(".xml")) {
+                fileName += ".xml";
+            }
+            writer.write(group, new File(fileName));
+        } catch (NullPointerException e) {
+
         }
-        writer.write(group, new File(fileName));
     }
 
     public Group loadGroup() {
         try {
             group = reader.chooseGroup();
         } catch (NullPointerException e) {
-            
+
         }
-        if(group != null){
-        window.gettcard().clearFalseList();
-        window.gettcard().setStatus(0, 0);
-        falseAnswers = new Group();
-        falseAnswers.setName("False Answers To " + group.getName());
-        falseAnswers.setVoc1(group.getVoc1());
-        falseAnswers.setVoc2(group.getVoc2());
-        position = 0;
+        if (group != null) {
+            window.gettcard().clearFalseList();
+            window.gettcard().setStatus(0, 0);
+            falseAnswers = new Group();
+            falseAnswers.setName("False Answers To " + group.getName());
+            falseAnswers.setVoc1(group.getVoc1());
+            falseAnswers.setVoc2(group.getVoc2());
+            position = 0;
         }
         return group;
     }
