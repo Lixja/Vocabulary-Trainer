@@ -20,6 +20,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -28,13 +29,15 @@ import javax.swing.JPanel;
  */
 public class EditCard extends JPanel implements ActionListener {
 
-    JButton btnNew;
-    JButton btnmod;
-    JButton btndel;
-    JButton btnsave;
-    JButton btnback;
+    private JButton btnNew;
+    private JButton btnmod;
+    private JButton btndel;
+    private JButton btnsave;
+    private JButton btnback;
 
-    BrowserCard card;
+    private BrowserCard card;
+
+    private boolean saved = false;
 
     public EditCard(BrowserCard card) {
         super();
@@ -61,14 +64,28 @@ public class EditCard extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnNew) {
             card.changeCard(BrowserCard.NEWC);
+            saved = false;
         } else if (e.getSource() == btnmod) {
             card.changeCard(BrowserCard.MODIFYC);
+            saved = false;
         } else if (e.getSource() == btndel) {
             card.deleteSelected();
+            saved = false;
         } else if (e.getSource() == btnsave) {
             card.Save();
+            saved = true;
         } else if (e.getSource() == btnback) {
-            card.getWindow().changeCard(card.getWindow().MENUC);
+            if (saved) {
+                card.getWindow().changeCard(card.getWindow().MENUC);
+            } else {
+                int decision = JOptionPane.showConfirmDialog(null, "You did not save the vocabularyfile.\n Do you wanna save it before leaving?", "SAVE?", JOptionPane.YES_NO_CANCEL_OPTION);
+                if (decision == JOptionPane.YES_OPTION) {
+                    card.Save();
+                    card.getWindow().changeCard(card.getWindow().MENUC);
+                } else if (decision == JOptionPane.NO_OPTION) {
+                    card.getWindow().changeCard(card.getWindow().MENUC);
+                }
+            }
 
         }
     }
