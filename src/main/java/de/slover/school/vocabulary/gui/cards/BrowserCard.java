@@ -179,10 +179,10 @@ public class BrowserCard extends JPanel implements ActionListener, FocusListener
     }
 
     public void addVoc(String voc1, String voc2) {
-        for(int i=0; i< modelvoc1.getSize(); i++){
-            if(modelvoc1.get(i).equals(voc1)){
-                for(int i2=0; i2<modelvoc2.getSize(); i2++){
-                    if(modelvoc2.get(i2).equals(voc2)){
+        for (int i = 0; i < modelvoc1.getSize(); i++) {
+            if (modelvoc1.get(i).equals(voc1)) {
+                for (int i2 = 0; i2 < modelvoc2.getSize(); i2++) {
+                    if (modelvoc2.get(i2).equals(voc2)) {
                         JOptionPane.showMessageDialog(null, "Already added!", "VOC-INFO", JOptionPane.PLAIN_MESSAGE);
                         return;
                     }
@@ -225,7 +225,7 @@ public class BrowserCard extends JPanel implements ActionListener, FocusListener
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == mntmOpenFile) {
             Group g = window.getHandler().loadGroup();
-            if(g == null){
+            if (g == null) {
                 return;
             }
             gname.setText(g.getName());
@@ -285,6 +285,18 @@ public class BrowserCard extends JPanel implements ActionListener, FocusListener
             voc1.setSelectedIndex(voc2.getSelectedIndex());
         }
 
+    }
+
+    public boolean windowClosing() {
+        if (!ecard.isSaved()) {
+            int decision = JOptionPane.showConfirmDialog(null, "You did not save the vocabularyfile.\n Do you wanna save it before leaving?", "SAVE?", JOptionPane.YES_NO_CANCEL_OPTION);
+            if (decision == JOptionPane.YES_OPTION) {
+                Save();
+            }else if(decision == JOptionPane.CANCEL_OPTION){
+                return false;
+            }
+        }
+        return true;
     }
 
 }

@@ -92,4 +92,8 @@ public class EditCard extends JPanel implements ActionListener {
         }
     }
 
+    public boolean isSaved() {
+        return saved;
+    }
+
 }

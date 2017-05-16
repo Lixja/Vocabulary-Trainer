@@ -182,4 +182,11 @@ public class TrainerCard extends JPanel implements ActionListener, KeyListener {
         }
     }
 
+    public boolean windowClosing() {
+        int decision = JOptionPane.showConfirmDialog(null, "Are you sure you wanna leave your training?", "EXIT?", JOptionPane.YES_NO_OPTION);
+        if(decision == JOptionPane.YES_OPTION){
+            return true;
+        }
+        return false;
+    }
 }

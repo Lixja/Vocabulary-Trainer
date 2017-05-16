@@ -23,6 +23,8 @@ import de.slover.school.vocabulary.gui.cards.TrainerCard;
 import de.slover.school.vocabulary.gui.cards.TrainerSettingsCard;
 import de.slover.school.vocabulary.handler.Handler;
 import java.awt.CardLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -34,7 +36,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  * @author Dimitrios Diamantidis &lt;Dimitri.dia@ledimi.com&gt;
  */
-public class Window {
+public class Window extends WindowAdapter{
 
     private JFrame frame;
 
@@ -52,6 +54,8 @@ public class Window {
     public final String LEARNC = "learn";
     public final String BROWSERC = "browser";
 
+    public String currentCard = MENUC;
+    
     private final Handler handler;
 
     public Window() {
@@ -74,9 +78,10 @@ public class Window {
     public void init() {
         this.setLookAndFeel();
         frame = new JFrame("VOCABULARY-TRAINER");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setSize(225, 125);
         frame.setLocationRelativeTo(null);
+        frame.addWindowListener(this);
         frame.getContentPane().add(card);
         frame.setVisible(true);
 
@@ -112,7 +117,7 @@ public class Window {
             default:
                 break;
         }
-
+        currentCard = card;
         clayout.show(this.card, card);
 
     }
@@ -131,7 +136,21 @@ public class Window {
         }
 
     }
-
+    @Override
+    public void windowClosing(WindowEvent e){
+        boolean shutdown = false;
+        if(currentCard == BROWSERC){
+            shutdown = bcard.windowClosing();
+        }else if(currentCard == TRAINERC){
+            shutdown = tcard.windowClosing();
+        }else{
+            System.exit(0);
+        }
+        if(shutdown){
+            System.exit(0);
+        }
+    }
+    
     public Handler getHandler() {
         return handler;
     }
